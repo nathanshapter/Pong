@@ -11,7 +11,8 @@ public class PlayerRacquet : MonoBehaviour
     float maxY = 4;
     [SerializeField] float xPosition = -8f;
 
-    
+   
+    [SerializeField] bool isPlayerOne;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -21,8 +22,10 @@ public class PlayerRacquet : MonoBehaviour
     void Update()
     {
        
+       InputMovement();
+            
+        
 
-        InputMovement();
         ClampMovement();
     }
 
@@ -37,6 +40,8 @@ public class PlayerRacquet : MonoBehaviour
 
     private void InputMovement()
     {
+
+
         float moveInput = Input.GetAxis("Vertical");
         Vector2 moveDirection = transform.up * moveInput;
 

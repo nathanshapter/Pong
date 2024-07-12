@@ -13,7 +13,7 @@ public class Ball : MonoBehaviour
     void Start()
     {
        rb = GetComponent<Rigidbody2D>();
-        
+      
     }
 
     
@@ -30,19 +30,35 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-              
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            moveSpeed = -moveSpeed;
+            float differenceY = CalculateDifferenceInY(transform.position.y, collision.transform.position.y);
+            print(differenceY);
+        }
+        else if (collision.gameObject.CompareTag("NorthBorder") || collision.gameObject.CompareTag("SouthBorder"))
+        {
+          
+            Vector2 normal = collision.contacts[0].normal;
 
-        moveSpeed = -moveSpeed;
+            
+            rb.velocity = Vector2.Reflect(rb.velocity, normal);
+
+            
+            deviationDirection = -deviationDirection;
+        }
+
         
-        print(CalculateDifferenceInY(transform.position.y, collision.gameObject.transform.position.y));
-        
+       
     }
      
 
     float CalculateDifferenceInY(float ballY, float collisionY)
     {
         float difference = ballY - collisionY;
-        deviationDirection = difference;
+        deviationDirection = difference + Random.Range(-.15f,.15f);
+
+       
         return difference;
     }
 
