@@ -10,6 +10,7 @@ public class Ball : MonoBehaviour
     [SerializeField] float moveSpeed = 5;
 
     [SerializeField] float deviationDirection = 0;
+    [SerializeField] float differenceMultiplier = 4;
     void Start()
     {
        rb = GetComponent<Rigidbody2D>();
@@ -42,7 +43,7 @@ public class Ball : MonoBehaviour
             Vector2 normal = collision.contacts[0].normal;
 
             
-            rb.velocity = Vector2.Reflect(rb.velocity, normal);
+            rb.velocity = Vector2.Reflect(rb.velocity *2, normal);
 
             
             deviationDirection = -deviationDirection;
@@ -53,13 +54,13 @@ public class Ball : MonoBehaviour
     }
      
 
-    float CalculateDifferenceInY(float ballY, float collisionY)
+    float  CalculateDifferenceInY(float ballY, float collisionY)
     {
         float difference = ballY - collisionY;
-        deviationDirection = difference + Random.Range(-.15f,.15f);
+        deviationDirection = (difference  * differenceMultiplier )+ Random.Range(-.15f,.15f);
 
+       return difference;
        
-        return difference;
     }
 
 }

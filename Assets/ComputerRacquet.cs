@@ -14,7 +14,7 @@ public class ComputerRacquet : MonoBehaviour
 
     Vector2 randomOffset;
 
-    float positionOffsetvalue = .4f;
+    float positionOffsetvalue = .2f;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
