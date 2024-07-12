@@ -9,6 +9,9 @@ public class PlayerRacquet : MonoBehaviour
 
     float minY = -4;
     float maxY = 4;
+    [SerializeField] float xPosition = -8f;
+
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,7 +32,7 @@ public class PlayerRacquet : MonoBehaviour
         float clampedY = Mathf.Clamp(currentPosition.y, minY, maxY);
 
 
-        transform.position = new Vector2(currentPosition.x, clampedY);
+        transform.position = new Vector2(xPosition, clampedY);
     }
 
     private void InputMovement()
@@ -38,5 +41,13 @@ public class PlayerRacquet : MonoBehaviour
         Vector2 moveDirection = transform.up * moveInput;
 
         rb.velocity = moveDirection * moveSpeed;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            
+        }
     }
 }
